@@ -94,9 +94,7 @@
             </div>
         </div>
     </div>
-
     <div id="toast" class="px-6 py-3 text-white bg-gray-800 rounded-lg shadow-lg"></div>
-
     <!-- Main App Container (Initially Hidden) -->
     <div id="main-app-container" class="hidden">
         <div class="flex h-screen bg-gray-100 w-full">
@@ -104,7 +102,6 @@
             <div id="sidebar-container" class="hidden md:flex flex-col w-64 bg-white border-r"></div>
             <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
             <div id="mobile-sidebar" class="mobile-sidebar fixed top-0 left-0 h-full w-64 bg-white border-r z-50"></div>
-
             <div class="flex flex-col flex-grow bg-gray-50">
                 <header class="flex items-center justify-between h-16 px-6 bg-white border-b">
                      <div class="flex items-center">
@@ -130,7 +127,6 @@
                         </div>
                     </div>
                 </header>
-
                 <main class="flex-grow p-4 md:p-6 overflow-auto">
                     <!-- Dashboard View -->
                     <div id="dashboard-view" class="view">
@@ -145,7 +141,6 @@
                             <div class="p-5 bg-white rounded-lg shadow"><h2 class="text-lg font-semibold text-gray-700">Distribusi Sarana per Kecamatan</h2><p class="text-sm text-gray-500 mb-4">Grafik ini menunjukkan persentase sebaran sarana kesehatan di berbagai kecamatan.</p><div class="chart-container"><canvas id="distribusiSaranaChart"></canvas></div></div>
                         </div>
                     </div>
-
                     <!-- Manajemen Sarana View -->
                     <div id="manajemen-view" class="view hidden">
                          <div class="bg-white p-4 md:p-6 rounded-lg shadow">
@@ -156,7 +151,6 @@
                             <div id="pagination-controls" class="flex items-center justify-between mt-4"></div>
                         </div>
                     </div>
-
                     <!-- Verifikasi Persyaratan View -->
                     <div id="verifikasi-view" class="view hidden">
                         <div class="bg-white p-4 md:p-6 rounded-lg shadow">
@@ -186,7 +180,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Peta Sebaran View -->
                     <div id="peta-view" class="view hidden">
                         <div class="bg-white p-4 md:p-6 rounded-lg shadow">
@@ -195,7 +188,6 @@
                              <div id="map"></div>
                         </div>
                     </div>
-
                     <!-- Jejak Audit View -->
                     <div id="audit-view" class="view hidden">
                         <div class="bg-white p-4 md:p-6 rounded-lg shadow">
@@ -219,11 +211,9 @@
                 </main>
             </div>
         </div>
-    </div>
-    
+    </div> 
     <!-- Modal Backdrop -->
     <div id="modal-backdrop" class="modal-backdrop"></div>
-
     <!-- Modal Verifikasi Persyaratan (Checklist) -->
     <div id="verifikasi-modal" class="modal w-11/12 max-w-4xl bg-white rounded-lg shadow-xl">
         <div class="p-6 max-h-[90vh] flex flex-col">
@@ -232,7 +222,6 @@
             <div class="pt-4 mt-auto flex justify-end"><button id="verifikasi-simpan-btn" class="px-6 py-2 font-semibold text-white bg-blue-600 rounded-md hover:bg-blue-700">Simpan & Tutup</button></div>
         </div>
     </div>
-
     <!-- Modal Wizard Tambah Sarana Baru -->
     <div id="wizard-modal" class="modal w-11/12 max-w-4xl bg-white rounded-lg shadow-xl">
         <div class="p-6 max-h-[90vh] flex flex-col">
@@ -318,7 +307,6 @@
         </div>
     </div>
     <input type="file" id="file-upload-input" class="hidden">
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // --- APP STATE & CONFIG ---
@@ -346,7 +334,6 @@
                     // Add all 30 districts and their sub-districts here
                 }
             };
-
             const initialData = [
                 { id: 1, nama: 'Klinik Medika Utama', jenis: 'Klinik Utama', alamat: 'Jl. Merdeka No. 10', kecamatan: 'Sumur Bandung', noIzin: '123/KMU/2021', tglKadaluwarsa: '2026-08-15', statusPermohonan: 'Perpanjangan', pelakuUsaha: 'PT Medika Jaya', email: 'info@medikautama.com', penanggungJawab: 'Dr. Budi Santoso', jamOperasional: 'Senin - Sabtu, 08:00 - 20:00', nomorHp: '081234567890', lat: -6.914744, lng: 107.609810 },
                 { id: 2, nama: 'Apotek Sehat Farma', jenis: 'Apotek', alamat: 'Jl. Asia Afrika No. 55', kecamatan: 'Regol', noIzin: '456/APT/2020', tglKadaluwarsa: '2025-11-20', statusPermohonan: 'Baru', pelakuUsaha: 'CV Sehat Selalu', email: 'kontak@sehatfarma.id', penanggungJawab: 'Ana S.Farm, Apt', jamOperasional: 'Setiap Hari, 24 Jam', nomorHp: '089876543210', lat: -6.921730, lng: 107.607132 },
@@ -356,18 +343,15 @@
             ];
             const persyaratanKlinik = ['Profil Klinik', 'Self Assesment Klinik', 'Daftar Obat-Obatan', 'Daftar nama SDM Klinik', 'Surat Izin Praktik (SIP) semua tenaga kesehatan', 'Perjanjian kerja sama limbah B3', 'Surat keterangan dinkes (opsional baru)', 'Sertifikat standar usaha (opsional perpanjangan)', 'Surat pernyataan perubahan (opsional perubahan)', 'Dokumen perubahan NIB (opsional perubahan)', 'Izin Mempekerjakan Tenaga Asing (IMTA) (opsional)', 'Persyaratan Izin Lainnya'];
             const persyaratanApotek = ['Administrasi', 'Lokasi', 'Bangunan', 'SDM', 'Sarana, Prasarana, dan Peralatan', 'Persyaratan Izin Lainnya'];
-
             // --- DATA MANAGEMENT ---
             const loadData = () => {
                 app.saranaData = JSON.parse(localStorage.getItem('sidaraData')) || initialData.map(d => ({ ...d, persyaratan: generateInitialPersyaratan(d.jenis) }));
                 app.auditLog = JSON.parse(localStorage.getItem('sidaraAuditLog')) || [];
             };
-
             const saveData = () => {
                 localStorage.setItem('sidaraData', JSON.stringify(app.saranaData));
                 localStorage.setItem('sidaraAuditLog', JSON.stringify(app.auditLog));
             };
-            
             const logAction = (action, details) => {
                 app.auditLog.unshift({
                     timestamp: new Date().toISOString(),
@@ -378,7 +362,6 @@
                 if (app.auditLog.length > 100) app.auditLog.pop(); // Keep log size manageable
                 saveData();
             };
-
             const generateInitialPersyaratan = (jenis) => {
                 const list = (jenis.includes('Klinik') || jenis.includes('Rumah Sakit')) ? persyaratanKlinik : persyaratanApotek;
                 return list.reduce((acc, item) => {
@@ -387,7 +370,6 @@
                     return acc;
                 }, {});
             };
-
             // --- AUTHENTICATION ---
             const login = (username, password) => {
                 const user = app.users.find(u => u.username === username && u.password === password);
@@ -404,7 +386,6 @@
                     document.getElementById('login-error').textContent = 'Username atau password salah.';
                 }
             };
-
             const updateUIAfterLogin = () => {
                 const isAdmin = app.currentUser.role === 'Admin';
                 document.querySelectorAll('.admin-only').forEach(el => {
@@ -412,7 +393,6 @@
                 });
                 if (document.getElementById('manajemen-view').style.display !== 'none') renderManajemenTable();
             };
-
             // --- UI & NAVIGATION ---
             const setupSidebars = () => {
                 const sidebarHTML = `
@@ -428,7 +408,6 @@
                 document.getElementById('sidebar-container').innerHTML = sidebarHTML;
                 document.getElementById('mobile-sidebar').innerHTML = sidebarHTML;
             };
-
             const switchView = (viewId) => {
                 document.querySelectorAll('.view').forEach(view => view.classList.add('hidden'));
                 document.getElementById(`${viewId}-view`).classList.remove('hidden');
@@ -443,7 +422,6 @@
                 mobileSidebar.classList.remove('open');
                 sidebarBackdrop.style.display = 'none';
             };
-
             // --- NOTIFICATIONS ---
             const checkNotifications = () => {
                 app.notifications = [];
@@ -472,7 +450,6 @@
                     list.innerHTML = `<p class="px-4 py-3 text-sm text-gray-500">Tidak ada notifikasi baru.</p>`;
                 }
             };
-
             // --- UTILITY FUNCTIONS ---
             const getStatus = (tglKadaluwarsa) => {
                 const today = new Date(); today.setHours(0,0,0,0);
@@ -508,7 +485,6 @@
                 });
                 return isValid;
             };
-
             // --- DASHBOARD ---
             let jenisSaranaChart, distribusiSaranaChart;
             function updateDashboard() {
@@ -530,7 +506,6 @@
                 if (distribusiSaranaChart) distribusiSaranaChart.destroy();
                 distribusiSaranaChart = new Chart(document.getElementById('distribusiSaranaChart'), { type: 'doughnut', data: { labels: kecamatanLabels, datasets: [{ label: 'Distribusi Sarana', data: kecamatanCounts, backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#EC4899', '#6366F1', '#84CC16', '#F97316', '#06B6D4'] }] }, options: chartOptions });
             }
-
             // --- MANAJEMEN SARANA ---
             function renderManajemenTable() {
                 const tableBody = document.getElementById('sarana-table-body');
@@ -560,7 +535,6 @@
                 if (totalPages <= 1) return;
                 paginationControls.innerHTML = `<div class="text-sm text-gray-700">Menampilkan <span class="font-medium">${((app.currentPage - 1) * app.rowsPerPage) + 1}</span> sampai <span class="font-medium">${Math.min(app.currentPage * app.rowsPerPage, totalItems)}</span> dari <span class="font-medium">${totalItems}</span> hasil</div><div class="flex items-center"><button onclick="window.app.changePage(${app.currentPage - 1})" class="px-3 py-1 border rounded-l-md ${app.currentPage === 1 ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-gray-50'}" ${app.currentPage === 1 ? 'disabled' : ''}>Sebelumnya</button><button onclick="window.app.changePage(${app.currentPage + 1})" class="px-3 py-1 border-t border-b border-r rounded-r-md ${app.currentPage === totalPages ? 'bg-gray-200 cursor-not-allowed' : 'bg-white hover:bg-gray-50'}" ${app.currentPage === totalPages ? 'disabled' : ''}>Berikutnya</button></div>`;
             }
-
             // --- VERIFIKASI PERSYARATAN ---
             function getVerifikasiStatus(sarana) {
                 if (!sarana.persyaratan) return { text: 'N/A', class: 'bg-gray-100 text-gray-800' };
@@ -614,7 +588,6 @@
                 document.getElementById('verifikasi-progress-bar').style.width = `${percentage}%`;
                 document.getElementById('verifikasi-progress-text').textContent = `${percentage}% (${sesuai}/${total} Sesuai)`;
             }
-
             // --- MAP ---
             function initMap() {
                 if (app.mapInitialized) { app.map.invalidateSize(); return; }
@@ -629,7 +602,6 @@
                 });
                 app.mapInitialized = true;
             }
-
             // --- AUDIT LOG ---
             function renderAuditLogTable() {
                 const tableBody = document.getElementById('audit-table-body');
@@ -639,20 +611,16 @@
                     tableBody.innerHTML += `<tr class="hover:bg-gray-50"><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${new Date(log.timestamp).toLocaleString('id-ID')}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${log.user}</td><td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${log.action}</td><td class="px-6 py-4 text-sm text-gray-500">${log.details}</td></tr>`;
                 });
             }
-
             // --- WIZARD ---
             const wizardNextBtn = document.getElementById('wizard-next-btn');
             const wizardBackBtn = document.getElementById('wizard-back-btn');
             const wizardSaveBtn = document.getElementById('wizard-save-btn');
-
             function updateWizardView() {
                 document.querySelectorAll('.wizard-step').forEach(step => step.classList.remove('active'));
                 document.getElementById(`wizard-step-${app.wizardState.currentStep}`).classList.add('active');
-
                 wizardBackBtn.style.display = app.wizardState.currentStep > 1 ? 'block' : 'none';
                 wizardNextBtn.style.display = app.wizardState.currentStep < 4 ? 'block' : 'none';
                 wizardSaveBtn.style.display = app.wizardState.currentStep === 4 ? 'block' : 'none';
-
                 const stepsIndicator = document.getElementById('wizard-steps-indicator');
                 stepsIndicator.innerHTML = '';
                 for (let i = 1; i <= 4; i++) {
@@ -660,8 +628,7 @@
                     stepsIndicator.innerHTML += `<div class="w-8 h-8 rounded-full flex items-center justify-center ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-600'}">${i}</div>`;
                     if (i < 4) stepsIndicator.innerHTML += `<div class="flex-1 h-px ${i < app.wizardState.currentStep ? 'bg-blue-600' : 'bg-gray-200'} self-center"></div>`;
                 }
-            }
-            
+            }   
             function openWizard() {
                 app.wizardState.currentStep = 1;
                 app.wizardState.data = {};
@@ -671,23 +638,19 @@
                 document.getElementById('wizard-modal').style.display = 'block';
                 document.getElementById('modal-backdrop').style.display = 'block';
             }
-
             function collectWizardData() {
                 const form = document.getElementById('wizard-form');
                 const formData = new FormData(form);
                 const data = {};
                 for (const [key, value] of formData.entries()) {
                     data[key] = value;
-                }
-                
+                }      
                 // Collect dynamic fields
                 const layananInputs = document.querySelectorAll('.wizard-layanan-input');
-                data.jenisLayanan = Array.from(layananInputs).map(input => input.value).filter(Boolean);
-                
+                data.jenisLayanan = Array.from(layananInputs).map(input => input.value).filter(Boolean);  
                 // Merge with existing data
                 app.wizardState.data = { ...app.wizardState.data, ...data };
             }
-
             wizardNextBtn.addEventListener('click', () => {
                 if (!validateForm(`wizard-step-${app.wizardState.currentStep}`)) {
                     showToast('Harap isi semua field yang wajib diisi.', 'error');
@@ -700,12 +663,10 @@
                 }
                 updateWizardView();
             });
-
             wizardBackBtn.addEventListener('click', () => {
                 app.wizardState.currentStep--;
                 updateWizardView();
             });
-
             function renderWizardSummary() {
                 const summaryContainer = document.getElementById('wizard-summary');
                 const data = app.wizardState.data;
@@ -722,7 +683,6 @@
                     <p><strong>Tanggal Masuk:</strong> ${data['wizard-tglMasuk']}</p>
                 `;
             }
-
             wizardSaveBtn.addEventListener('click', () => {
                 const data = app.wizardState.data;
                 const newSarana = {
@@ -762,7 +722,6 @@
                 document.getElementById('modal-backdrop').style.display = 'none';
                 updateAll();
             });
-
             // --- EVENT LISTENERS & GLOBAL FUNCTIONS ---
             function setupEventListeners() {
                 document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); switchView(link.dataset.view); }));
@@ -833,7 +792,6 @@
                     }
                 });
             }
-
             const openEditModal = (id) => {
                 // This function is now deprecated in favor of the full wizard for editing, but kept for potential future use with a simple edit form.
                 // For now, we can redirect to a simulated full edit experience.
@@ -865,7 +823,6 @@
                 fileInput.click();
             };
             const viewFile = (fileName) => { showToast(`Menampilkan file: ${fileName} (simulasi).`); };
-
             function updateAll() {
                 updateDashboard();
                 renderManajemenTable();
@@ -873,7 +830,6 @@
                 if (app.mapInitialized) initMap();
                 if (app.currentUser) checkNotifications();
             }
-
             // --- INITIAL EXECUTION ---
             window.app = { login, openEditModal, deleteSarana, changePage, openVerifikasiModal, uploadFile, viewFile };
             setupSidebars();
